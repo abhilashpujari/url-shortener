@@ -16,4 +16,6 @@
 /** @type {typeof import('@adonisjs/framework/src/Route/Manager')} */
 const Route = use('Route')
 
-Route.post('urls', 'UrlController.create').as('urls.create')
+Route.post('urls', 'UrlController.create')
+  .as('urls.create')
+  .validator('CreateUrl')

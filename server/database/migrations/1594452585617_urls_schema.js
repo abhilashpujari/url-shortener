@@ -7,8 +7,8 @@ class UrlsSchema extends Schema {
   up () {
     this.create('urls', (table) => {
       table.increments()
-      table.string('originalUrl').notNullable()
-      table.string('shortCode').notNullable().unique()
+      table.string('original_url').notNullable()
+      table.string('short_code').notNullable().unique()
       table.timestamps()
     })
   }

@@ -1,24 +1,20 @@
 'use strict'
 
-let { nanoid } = require('nanoid');
+let { nanoid } = require('nanoid')
 
 class UrlController {
   create({request, response}) {
-    const data = request.post()
-
-    if (!data.originalUrl) {
-      throw new Error('Original Url field is required', 400);
-    }
+    const data = request.all()
 
     let shortCode;
-    if (data.shortCode) {
-      shortCode = data.shortCode;
+    if (data.short_code) {
+      shortCode = data.short_code
     } else {
-      shortCode = nanoid(7);
+      shortCode = nanoid(7)
     }
 
-    response.status(201);
-    response.json(data);
+    response.status(201)
+    response.json(data)
   }
 }
 
