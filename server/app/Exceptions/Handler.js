@@ -1,15 +1,23 @@
 const BaseExceptionHandler = use('BaseExceptionHandler')
 
 class ExceptionHandler extends BaseExceptionHandler {
+  /**
+   *
+   * @param error
+   * @param response
+   * @param session
+   * @returns {Promise<void>}
+   */
   async handle(error, {response, session}) {
-    let errorMessage = error.message;
+    let message = error.message
+
     if (error.name === 'ValidationException') {
-      errorMessage = error.messages[0].message
+      message = error.messages[0].message
     }
 
     response.status(error.status);
     response.json({
-      message: errorMessage,
+      message: message,
       code: error.status
     });
   }
