@@ -22,3 +22,11 @@ Route.post('urls', 'UrlController.create')
 
 Route.get(':code', 'UrlController.view')
   .as('urls.view')
+
+Route.post('register', 'UserController.register')
+  .as('users.register')
+  .validator('Register')
+
+Route.post('authenticate', 'UserController.login')
+  .as('users.login')
+  .validator('Login')

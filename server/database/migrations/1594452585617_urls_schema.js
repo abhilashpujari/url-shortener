@@ -6,7 +6,7 @@ const Schema = use('Schema')
 class UrlsSchema extends Schema {
   up() {
     this.create('urls', (table) => {
-      table.increments()
+      table.increments().primary()
       table.string('title').nullable()
       table.string('original_url').notNullable()
       table.string('short_code').notNullable().unique()

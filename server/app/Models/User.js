@@ -21,6 +21,22 @@ class User extends Model {
     })
   }
 
+  static get primaryKey() {
+    return 'id'
+  }
+
+  static get hidden () {
+    return ['password', 'is_verified', 'created_at', 'updated_at']
+  }
+
+  static get computed () {
+    return ['full_name']
+  }
+
+  getFullName ({ first_name, last_name }) {
+    return `${first_name} ${last_name}`
+  }
+
   urls () {
     return this.hasMany('App/Models/Url')
   }
