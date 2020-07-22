@@ -4,16 +4,20 @@
 const Schema = use('Schema')
 
 class UrlsSchema extends Schema {
-  up () {
+  up() {
     this.create('urls', (table) => {
       table.increments()
+      table.string('title').nullable()
       table.string('original_url').notNullable()
       table.string('short_code').notNullable().unique()
       table.timestamps()
+
+      table.integer('user_id').unsigned()
+      table.foreign('user_id').references('id').inTable('users').onDelete('CASCADE')
     })
   }
 
-  down () {
+  down() {
     this.drop('urls')
   }
 }

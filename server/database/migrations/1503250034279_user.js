@@ -11,7 +11,7 @@ class UserSchema extends Schema {
       table.string('first_name', 60).nullable()
       table.string('last_name', 60).nullable()
       table.string('password', 60).notNullable()
-      table.boolean('is_verified').defaultTo(false)
+      table.boolean('is_verified').defaultTo(true)
       table.timestamps()
     })
   }

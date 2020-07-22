@@ -20,6 +20,10 @@ class User extends Model {
       }
     })
   }
+
+  urls () {
+    return this.hasMany('App/Models/Url')
+  }
 }
 
 module.exports = User

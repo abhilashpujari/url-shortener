@@ -3,7 +3,8 @@
 class CreateUrl {
   get rules () {
     return {
-      original_url: 'required'
+      original_url: 'required',
+      short_code: 'unique:urls'
     }
   }
 
