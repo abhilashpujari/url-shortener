@@ -37,22 +37,27 @@ class UserController {
   async login({request, response, auth}) {
     let {email, password} = request.post()
 
-    let user = User.findBy('email', email)
+    let user = await User.findBy('email', email)
+
+    if (!user) {
+      throw new HttpBadRequestException('You have entered an invalid email or password.');
+    }
 
     try {
-      if (await auth.attempt(email, password)) {
-        let token = await auth.generate(user)
-        response.status(201)
-        response.json(token)
-      }
+      let jwt = await auth.attempt(email, password, {
+        'id': user.id,
+        'email': user.email,
+        'full_name': user.full_name
+      })
 
-
+      response.status(200)
+      response.json({token: jwt.token})
     } catch (error) {
       if (error.message.includes('E_PASSWORD_MISMATCH') || error.message.includes('E_USER_NOT_FOUND')) {
-        throw new HttpBadRequestException('You have entered an invalid email or password.');
+        throw new HttpBadRequestException('You have entered an invalid email or password.')
       }
 
-      throw new HttpBadRequestException(error.message);
+      throw new HttpBadRequestException(error.message)
     }
   }
 }

@@ -18,6 +18,7 @@ const Route = use('Route')
 
 Route.post('urls', 'UrlController.create')
   .as('urls.create')
+  .middleware(['auth'])
   .validator('CreateUrl')
 
 Route.get(':code', 'UrlController.view')

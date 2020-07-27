@@ -15,6 +15,10 @@ class ExceptionHandler extends BaseExceptionHandler {
       message = error.messages[0].message
     }
 
+    if (error.message.includes('E_INVALID_JWT_TOKEN')) {
+      message = 'Invalid token'
+    }
+
     response.status(error.status);
     response.json({
       message: message,

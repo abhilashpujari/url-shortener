@@ -8,23 +8,23 @@ class UrlController {
 
   /**
    *
+   * @param auth
    * @param request
    * @param response
    * @returns {Promise<void>}
    */
-  async create({request, response}) {
+  async create({request, response, auth}) {
     let {title = '', short_code: shortCode, original_url} = request.post()
+    const user = await auth.getUser()
 
     // if shortCode is not passed by user than generate custom short code
     if (!shortCode) {
       shortCode = nanoid(7)
     }
 
-    const url = new Url()
-    url.title = title
-    url.short_code = shortCode
-    url.original_url = original_url
-    await url.save()
+    const url = await user
+      .urls()
+      .create({ title: title, short_code: shortCode, original_url: original_url })
 
     response.status(201)
     response.json(url)
